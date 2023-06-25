@@ -5,7 +5,12 @@ pipeline {
     agent any
 
     triggers {
-        cron('H/5 * * * *')
+        // cron('H/5 * * * *')
+    }
+
+    options {
+        // In multi branch pipeline all parallel build over all branches are waiting until one is finished.
+        disableConcurrentBuilds()
     }
 
     environment {
