@@ -13,8 +13,6 @@ pipeline {
     options {
         // Disable at branch level parallel build
         disableConcurrentBuilds()
-        // Locking semaphore for pipeline, between branches builds are locked.
-        lock('parallel-build-lock')
     }
 
     environment {
