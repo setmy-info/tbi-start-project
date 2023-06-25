@@ -13,6 +13,7 @@ pipeline {
     options {
         // Disable at branch level parallel build
         disableConcurrentBuilds()
+        parallelsAlwaysFailFast(1)
     }
 
     environment {
