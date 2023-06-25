@@ -11,8 +11,10 @@ pipeline {
     */
 
     options {
-        // In multi branch pipeline all parallel build over all branches are waiting until one is finished.
+        // Disable at branch level parallel build
         disableConcurrentBuilds()
+        // Locking semaphore for pipeline, between branches builds are locked.
+        lock('parallel-build-lock')
     }
 
     environment {
