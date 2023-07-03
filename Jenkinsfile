@@ -77,7 +77,7 @@ pipeline {
 			    //def job = Jenkins.instance.getItemByFullName(env.JOB_NAME)
 			    //def build = job.getBuildByNumber(buildNumber)
 			    print "Job name: $jobName"
-			    print "Job name: $buildNumber"
+			    print "Job number: $buildNumber"
 			}
 		   }
                 }
