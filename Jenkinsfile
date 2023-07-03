@@ -1,3 +1,9 @@
+import jenkins.model.Jenkins
+import hudson.plugins.git.GitSCM
+import hudson.plugins.git.util.DefaultBuildChooser
+import hudson.plugins.git.util.BuildChooserContext
+import hudson.plugins.git.util.BuildData
+
 pipeline {
 
     // version 1.0.0
@@ -65,9 +71,14 @@ pipeline {
                 }
                 stage('Jenkins Scripting') {
                     steps {
-			    def job = Jenkins.instance.getItemByFullName(env.JOB_NAME)
-			    def build = job.getBuildByNumber(buildNumber)
-			    print "Build: $build"
+                	script {
+                	    def jobName = env.JOB_NAME
+                	    def buildNumber = env.BUILD_NUMBER
+			    //def job = Jenkins.instance.getItemByFullName(env.JOB_NAME)
+			    //def build = job.getBuildByNumber(buildNumber)
+			    print "Job name: $jobName"
+			    print "Job name: $buildNumber"
+			}
 		   }
                 }
             }
