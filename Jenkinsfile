@@ -65,11 +65,9 @@ pipeline {
                 }
                 stage('Jenkins Scripting') {
                     steps {
-			script {
 			    def job = Jenkins.instance.getItemByFullName(env.JOB_NAME)
 			    def build = job.getBuildByNumber(buildNumber)
 			    print "Build: $build"
-			}
 		   }
                 }
             }
