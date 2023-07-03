@@ -62,7 +62,16 @@ pipeline {
                         echo 'Put here commands to check, that build tools are installed'
                         sh 'echo "Hello stage B"'
                     }
-                }                
+                }
+                stage('Jenkins Scripting') {
+                    steps {
+			script {
+			    def job = Jenkins.instance.getItemByFullName(env.JOB_NAME)
+			    def build = job.getBuildByNumber(buildNumber)
+			    print "Build: $build"
+			}
+		   }
+                }
             }
         }
 
