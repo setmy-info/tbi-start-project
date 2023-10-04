@@ -54,18 +54,31 @@ pipeline {
                             sh 'echo "What is this time?"'
                             // sh 'exit 1' // Failing that step
                         }
-                        /*
                         script {
-			    def previousBuild = currentBuild.previousBuild
+                	    def jobName = env.JOB_NAME
+                	    def buildNumber = env.BUILD_NUMBER
+                	    def previousBuild = currentBuild.previousBuild
 			    def gitChangeSet = currentBuild.changeSets[0]
-			    if (previousBuild != null && gitChangeSet != null) {
-			        def affectedFiles = gitChangeSet.items.collect { it.path }
-			        echo "Muutunud failid eelneva ehitusega võrreldes: ${affectedFiles.join(', ')}"
+			    def allChanges = []
+			    if (gitChangeSet != null) {
+	   			for (changeSet in currentBuild.changeSets) {
+		                   allChanges.addAll(changeSet.items)
+		                }
+			    }
+			    
+			    //def job = Jenkins.instance.getItemByFullName(env.JOB_NAME)
+			    //def build = job.getBuildByNumber(buildNumber)
+			    print "Job name: $jobName"
+			    print "Job number: $buildNumber"
+			    print "previousBuild: $previousBuild , allChanges: $allChanges"
+			    if (previousBuild != null) {
+			        def affectedFilePaths = allChanges.collect { it.paths }
+			        def affectedFiles = affectedFilePaths.collect { it.path }
+			        print "Muutunud failid eelneva ehitusega võrreldes: ${affectedFiles.join(', ')}"
 			    } else {
-			        echo "Eelnevat ehitust ei leitud või ei ole muudatusi."
+			        print "Eelnevat ehitust ei leitud või ei ole muudatusi."
 			    }
 			}
-			*/
 			script {
 			   echo "Scripti proov."
 			}
