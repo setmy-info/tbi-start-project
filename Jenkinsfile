@@ -60,7 +60,6 @@ pipeline {
                             body: "Job: $JOB_NAME, build: $BUILD_NUMBER, url: ${env.BUILD_URL}",
                             recipientProviders: [[$class: 'DevelopersRecipientProvider']]
                         )
-                        fileExists 'README.md'
                         script {
 			    def previousBuild = currentBuild.previousBuild
 			    def gitChangeSet = currentBuild.changeSets[0]
@@ -71,6 +70,7 @@ pipeline {
 			        echo "Eelnevat ehitust ei leitud või ei ole muudatusi."
 			    }
 			}
+                        fileExists 'README.md'
                     }
                 }
                 stage('Build tools') {
