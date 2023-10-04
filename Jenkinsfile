@@ -75,8 +75,12 @@ pipeline {
 			        def affectedFilePaths = allChanges.collect { it.paths }
 			        def affectedFiles = affectedFilePaths.collect { it.path }
 			        def tbiFiles = affectedFiles.findAll { file ->
-                                   file =~ /^sprint-backlog\/tbi-.*\.(yaml|yml)$/
-                                }
+					def isTbiFile = false
+					if (file.startsWith('sprint-backlog/tbi-') && (file.endsWith('.yaml') || file.endsWith('.yml'))) {
+						isTbiFile = true
+					}
+					isTbiFile
+				}
 			        print "Changed file names conpared by previous build: ${affectedFiles.join(', ')}"
 			        print "TBI files: ${tbiFiles.join(', ')}"
 			    } else {
