@@ -105,7 +105,8 @@ pipeline {
 			    print "Job number: $buildNumber"
 			    print "previousBuild: $previousBuild , allChanges: $allChanges"
 			    if (previousBuild != null) {
-			        def affectedFiles = allChanges.collect { it.paths }
+			        def affectedFilePaths = allChanges.collect { it.paths }
+			        def affectedFiles = affectedFilePaths.collect { it.path }
 			        print "Muutunud failid eelneva ehitusega võrreldes: ${affectedFiles.join(', ')}"
 			    } else {
 			        print "Eelnevat ehitust ei leitud või ei ole muudatusi."
