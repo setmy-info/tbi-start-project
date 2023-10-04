@@ -57,36 +57,33 @@ pipeline {
                         script {
                 	    def jobName = env.JOB_NAME
                 	    def buildNumber = env.BUILD_NUMBER
-                	    def previousBuild = currentBuild.previousBuild
-			    //def gitChangeSet = currentBuild.changeSets[0]
-			    def allChanges = []
-     			    for (changeSet in currentBuild.changeSets) {
-	                        allChanges.addAll(changeSet.items)
-	                    }
-			    
 			    //def job = Jenkins.instance.getItemByFullName(env.JOB_NAME)
 			    //def build = job.getBuildByNumber(buildNumber)
 			    print "Job name: $jobName"
 			    print "Job number: $buildNumber"
+
+                	    def previousBuild = currentBuild.previousBuild
+	                    def allChangesSetsItems = []
+     			    for (changeSet in currentBuild.changeSets) {
+	     			for(item : changeSet.items) {
+		     			allChangesSetsItems.add(item)
+     			    	}             
+	                    }
 			    print "previousBuild: $previousBuild , allChanges: $allChanges"
-			    if (previousBuild != null) {
-			        def affectedFilePaths = allChanges.collect { it.paths }
-			        print "affectedFilePaths: $affectedFilePaths"
-			        def affectedFiles = affectedFilePaths.collect { it.path }
-			        print "affectedFiles: $affectedFiles"
-			        def tbiFiles = affectedFiles.findAll { 
-				        print "File: ${it}"
+				def affectedFilePaths = allChangesSetsItems.collect { it.paths }
+				print "affectedFilePaths: $affectedFilePaths"
+				def affectedFiles = affectedFilePaths.collect { it.path }
+				print "affectedFiles: $affectedFiles"
+				def tbiFiles = affectedFiles.findAll { 
+					print "File: ${it}"
 					def isTbiFile = false
 	/*					if (it.startsWith('sprint-backlog/tbi-') && (it.endsWith('.yaml') || it.endsWith('.yml'))) {
 						isTbiFile = true
 					}*/
 					isTbiFile
 				}
-			        print "Changed file names compared by previous build: ${affectedFiles.join(', ')}"
-			        print "TBI files: ${tbiFiles.join(', ')}"
-			    } else {
-			        print "No changes by previous build or no changes."
-			    }
+				print "Changed file names compared by previous build: ${affectedFiles.join(', ')}"
+				print "TBI files: ${tbiFiles.join(', ')}"
 			}
 			script {
 			   echo "Scripti proov."
