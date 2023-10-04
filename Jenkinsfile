@@ -69,7 +69,7 @@ pipeline {
 		     			allChangesSetsItems.add(item)
      			    	}             
 	                    }
-			    print "previousBuild: $previousBuild , allChanges: $allChanges"
+			    print "previousBuild: $previousBuild , allChangesSetsItems: $allChangesSetsItems"
 				def affectedFilePaths = allChangesSetsItems.collect { it.paths }
 				print "affectedFilePaths: $affectedFilePaths"
 				def affectedFiles = affectedFilePaths.collect { it.path }
