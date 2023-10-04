@@ -92,13 +92,20 @@ pipeline {
                 	    def buildNumber = env.BUILD_NUMBER
                 	    def previousBuild = currentBuild.previousBuild
 			    def gitChangeSet = currentBuild.changeSets[0]
+			    def allChanges = []
+			    if (gitChangeSet != null) {
+	   			for (changeSet in currentBuild.changeSets) {
+		                   allChanges.addAll(changeSet.items)
+		                }
+			    }
+			    
 			    //def job = Jenkins.instance.getItemByFullName(env.JOB_NAME)
 			    //def build = job.getBuildByNumber(buildNumber)
 			    print "Job name: $jobName"
 			    print "Job number: $buildNumber"
-			    print "previousBuild: $previousBuild , gitChangeSet: $gitChangeSet"
-			    if (previousBuild != null && gitChangeSet != null) {
-			        def affectedFiles = gitChangeSet.items.collect { it.paths }
+			    print "previousBuild: $previousBuild , allChanges: $allChanges"
+			    if (previousBuild != null) {
+			        def affectedFiles = allChanges.collect { it.paths }
 			        print "Muutunud failid eelneva ehitusega võrreldes: ${affectedFiles.join(', ')}"
 			    } else {
 			        print "Eelnevat ehitust ei leitud või ei ole muudatusi."
