@@ -97,7 +97,7 @@ pipeline {
 			    print "Job name: $jobName"
 			    print "Job number: $buildNumber"
 			    if (previousBuild != null && gitChangeSet != null) {
-			        def affectedFiles = gitChangeSet.items.collect { it.path }
+			        def affectedFiles = gitChangeSet.items.collect { it.paths }
 			        print "Muutunud failid eelneva ehitusega võrreldes: ${affectedFiles.join(', ')}"
 			    } else {
 			        print "Eelnevat ehitust ei leitud või ei ole muudatusi."
