@@ -61,6 +61,16 @@ pipeline {
                             recipientProviders: [[$class: 'DevelopersRecipientProvider']]
                         )
                         fileExists 'README.md'
+                        script {
+			    def previousBuild = currentBuild.previousBuild
+			    def gitChangeSet = currentBuild.changeSets[0]
+			    if (previousBuild != null && gitChangeSet != null) {
+			        def affectedFiles = gitChangeSet.items.collect { it.path }
+			        echo "Muutunud failid eelneva ehitusega võrreldes: ${affectedFiles.join(', ')}"
+			    } else {
+			        echo "Eelnevat ehitust ei leitud või ei ole muudatusi."
+			    }
+			}
                     }
                 }
                 stage('Build tools') {
