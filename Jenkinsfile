@@ -66,6 +66,9 @@ pipeline {
 			    }
 			}
 			*/
+			script {
+			   echo "Scripti proov."
+			}
                         // build(job: 'has-web-app-new', propagate: true)
                         emailext (
                             subject: "Jenkins job: $JOB_NAME, build: $BUILD_NUMBER",
