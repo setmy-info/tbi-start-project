@@ -76,6 +76,7 @@ pipeline {
                             recipientProviders: [[$class: 'DevelopersRecipientProvider']]
                         )
                         fileExists 'README.md'
+                        fileExists 'sprint-backlog/backlog_txt'
                     }
                 }
                 stage('Build tools') {
