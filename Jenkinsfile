@@ -65,7 +65,7 @@ pipeline {
                 	    def previousBuild = currentBuild.previousBuild
 	                    def allChangesSetsItems = []
      			    for (changeSet in currentBuild.changeSets) {
-	     			for(item : changeSet.items) {
+	     			for(item in changeSet.items) {
 		     			allChangesSetsItems.add(item)
      			    	}             
 	                    }
