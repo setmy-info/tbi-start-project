@@ -58,13 +58,11 @@ pipeline {
                 	    def jobName = env.JOB_NAME
                 	    def buildNumber = env.BUILD_NUMBER
                 	    def previousBuild = currentBuild.previousBuild
-			    def gitChangeSet = currentBuild.changeSets[0]
+			    //def gitChangeSet = currentBuild.changeSets[0]
 			    def allChanges = []
-			    if (gitChangeSet != null) {
-	   			for (changeSet in currentBuild.changeSets) {
-		                   allChanges.addAll(changeSet.items)
-		                }
-			    }
+     			    for (changeSet in currentBuild.changeSets) {
+	                        allChanges.addAll(changeSet.items)
+	                    }
 			    
 			    //def job = Jenkins.instance.getItemByFullName(env.JOB_NAME)
 			    //def build = job.getBuildByNumber(buildNumber)
@@ -73,7 +71,9 @@ pipeline {
 			    print "previousBuild: $previousBuild , allChanges: $allChanges"
 			    if (previousBuild != null) {
 			        def affectedFilePaths = allChanges.collect { it.paths }
+			        print "affectedFilePaths: $affectedFilePaths"
 			        def affectedFiles = affectedFilePaths.collect { it.path }
+			        print "affectedFiles: $affectedFiles"
 			        def tbiFiles = affectedFiles.findAll { 
 				        print "File: ${it}"
 					def isTbiFile = false
@@ -82,7 +82,7 @@ pipeline {
 					}*/
 					isTbiFile
 				}
-			        print "Changed file names conpared by previous build: ${affectedFiles.join(', ')}"
+			        print "Changed file names compared by previous build: ${affectedFiles.join(', ')}"
 			        print "TBI files: ${tbiFiles.join(', ')}"
 			    } else {
 			        print "No changes by previous build or no changes."
