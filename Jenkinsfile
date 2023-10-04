@@ -74,9 +74,9 @@ pipeline {
 			    if (previousBuild != null) {
 			        def affectedFilePaths = allChanges.collect { it.paths }
 			        def affectedFiles = affectedFilePaths.collect { it.path }
-			        print "Muutunud failid eelneva ehitusega võrreldes: ${affectedFiles.join(', ')}"
+			        print "Changed file names conpared by previous build: ${affectedFiles.join(', ')}"
 			    } else {
-			        print "Eelnevat ehitust ei leitud või ei ole muudatusi."
+			        print "No changes by previous build or no changes."
 			    }
 			}
 			script {
@@ -101,29 +101,7 @@ pipeline {
                 stage('Jenkins Scripting') {
                     steps {
                 	script {
-                	    def jobName = env.JOB_NAME
-                	    def buildNumber = env.BUILD_NUMBER
-                	    def previousBuild = currentBuild.previousBuild
-			    def gitChangeSet = currentBuild.changeSets[0]
-			    def allChanges = []
-			    if (gitChangeSet != null) {
-	   			for (changeSet in currentBuild.changeSets) {
-		                   allChanges.addAll(changeSet.items)
-		                }
-			    }
-			    
-			    //def job = Jenkins.instance.getItemByFullName(env.JOB_NAME)
-			    //def build = job.getBuildByNumber(buildNumber)
-			    print "Job name: $jobName"
-			    print "Job number: $buildNumber"
-			    print "previousBuild: $previousBuild , allChanges: $allChanges"
-			    if (previousBuild != null) {
-			        def affectedFilePaths = allChanges.collect { it.paths }
-			        def affectedFiles = affectedFilePaths.collect { it.path }
-			        print "Muutunud failid eelneva ehitusega võrreldes: ${affectedFiles.join(', ')}"
-			    } else {
-			        print "Eelnevat ehitust ei leitud või ei ole muudatusi."
-			    }
+                	    print "Hello Scripting."
 			}
 		   }
                 }
