@@ -54,12 +54,6 @@ pipeline {
                             sh 'echo "What is this time?"'
                             // sh 'exit 1' // Failing that step
                         }
-                        // build(job: 'has-web-app-new', propagate: true)
-                        emailext (
-                            subject: "Jenkins job: $JOB_NAME, build: $BUILD_NUMBER",
-                            body: "Job: $JOB_NAME, build: $BUILD_NUMBER, url: ${env.BUILD_URL}",
-                            recipientProviders: [[$class: 'DevelopersRecipientProvider']]
-                        )
                         script {
 			    def previousBuild = currentBuild.previousBuild
 			    def gitChangeSet = currentBuild.changeSets[0]
@@ -70,6 +64,12 @@ pipeline {
 			        echo "Eelnevat ehitust ei leitud või ei ole muudatusi."
 			    }
 			}
+                        // build(job: 'has-web-app-new', propagate: true)
+                        emailext (
+                            subject: "Jenkins job: $JOB_NAME, build: $BUILD_NUMBER",
+                            body: "Job: $JOB_NAME, build: $BUILD_NUMBER, url: ${env.BUILD_URL}",
+                            recipientProviders: [[$class: 'DevelopersRecipientProvider']]
+                        )
                         fileExists 'README.md'
                     }
                 }
