@@ -96,6 +96,7 @@ pipeline {
 			    //def build = job.getBuildByNumber(buildNumber)
 			    print "Job name: $jobName"
 			    print "Job number: $buildNumber"
+			    print "previousBuild: $previousBuild , gitChangeSet: $gitChangeSet"
 			    if (previousBuild != null && gitChangeSet != null) {
 			        def affectedFiles = gitChangeSet.items.collect { it.paths }
 			        print "Muutunud failid eelneva ehitusega võrreldes: ${affectedFiles.join(', ')}"
